@@ -1,107 +1,129 @@
-# Baixador de Playlist do YouTube
+# 🎵 Baixador e Conversor de Vídeos do YouTube
 
-Este código Python utiliza a biblioteca Pytube para baixar vídeos de uma playlist do YouTube. Ele solicitará a URL da playlist e um nome para a pasta de destino onde os vídeos serão salvos.
+Este projeto contém três scripts Python com finalidades distintas, todos voltados para download de conteúdo do YouTube. Você poderá:
 
-## Funcionamento
+- 📥 Baixar vídeos de uma playlist inteira (`playlist.py`)
+- 🎧 Baixar um vídeo individual e convertê-lo automaticamente para MP3 de forma moderna e confiável (`pmp3_new.py`)
+- 🧪 Baixar e converter manualmente um vídeo usando Pytube e MoviePy (`PyMP3_old.py`)
 
-O código funciona da seguinte maneira:
+
+### PS: Certifique-se de baixar o requirements.txt e gerar seu ambiente virtual
+
+---
+
+## 📁 `playlist.py` – Baixar uma Playlist do YouTube
+
+Este script utiliza a biblioteca **Pytube** para baixar todos os vídeos de uma playlist do YouTube.
+
+### 🚀 Como Funciona:
 
 1. Solicita a URL da playlist do usuário.
+2. Cria uma instância `Playlist` usando a biblioteca `pytube`.  
+3. Mostra o número total de vídeos encontrados.  
+4. Percorre cada vídeo e baixa na resolução mais alta disponível.  
+5. Salva os vídeos em uma pasta com o nome definido pelo usuário.  
+6. Exibe mensagens de progresso e erro.
 
-2. Cria uma instância de `Playlist` do Pytube com a URL da playlist.
+### 📌 Observação Importante:  
+> ⚠️ A biblioteca **Pytube** pode **quebrar** com frequência devido a alterações no YouTube. Ela depende da estrutura da página HTML do site, que pode mudar sem aviso. Sempre verifique a compatibilidade da versão instalada com a do YouTube.
 
-3. Obtém o número total de vídeos na playlist.
+### ✅ Pré-requisitos:
 
-4. Itera sobre os vídeos na playlist e baixa cada um deles em alta resolução.
-
-5. Salva os vídeos na pasta de destino especificada pelo usuário.
-
-6. Exibe mensagens de status durante o processo.
-
-7. Informa quando o download da playlist é concluído.
-
-## Uso
-
-Para usar o código, siga estas etapas:
-
-1. Execute o código Python.
-
-2. Digite a URL da playlist do YouTube quando solicitado.
-
-3. Especifique um nome para a pasta onde os vídeos serão salvos.
-
-4. Aguarde até que o download da playlist seja concluído.
-
-Lembre-se de que a biblioteca Pytube pode não funcionar corretamente em todos os casos, devido a alterações no site do YouTube. Certifique-se de usar o código de acordo com as políticas e termos de serviço do YouTube.
-
-## Pré-requisitos
-
-Certifique-se de ter a biblioteca Pytube instalada em seu ambiente Python. Você pode instalá-la usando o seguinte comando:
-
-```Terminal Windows / Linux
+```bash
 pip install pytube
 ```
+
 ou
-```Terminal Windows / Linux
+
+```bash
 pip3 install pytube
 ```
 
-# Conversor de Vídeo para MP3
+## pmp3_new.py – Conversor Moderno de Vídeo para MP3 (recomendado)
 
-Este código Python usa a biblioteca Pytube para baixar um vídeo do YouTube, converter o vídeo baixado em um arquivo MP3 e salvá-lo no caminho especificado pelo usuário.
+Este script utiliza a poderosa biblioteca yt-dlp com ffmpeg embutido para baixar somente o áudio de um vídeo e convertê-lo automaticamente para o formato MP3 com alta qualidade (192kbps).
 
-## Funcionamento
+🚀 Como Funciona:
 
-O código funciona da seguinte maneira:
+    1. Solicita o link do vídeo do YouTube.
 
-1. Solicita ao usuário que insira o link do vídeo do YouTube.
+    2. Pergunta o caminho onde o arquivo será salvo.
 
-2. Solicita ao usuário que especifique o caminho onde o vídeo será salvo.
+    3. Usa yt-dlp para baixar apenas o melhor áudio disponível.
 
-3. Baixa o vídeo do YouTube no caminho especificado.
+    4. Converte automaticamente para .mp3 usando FFmpeg.
 
-4. Converte o vídeo para um arquivo MP3.
+    5. Salva com o nome do vídeo original.
 
-5. Salva o arquivo MP3 no mesmo diretório onde o vídeo foi baixado.
+### ✅ Vantagens:
 
-6. Remove o arquivo de vídeo original (opcional).
+    . Compatível com versões atuais do YouTube.
 
-7. Exibe uma mensagem indicando que o download e a conversão foram concluídos com sucesso.
+    . Mais robusto que o Pytube.
 
-## Uso
+    . Conversão direta, rápida e eficiente.
 
-Para usar o código, siga estas etapas:
+    . Sem necessidade de apagar o vídeo manualmente — o .mp3 já é o resultado final.
 
-1. Execute o código Python.
+### ✅ Pré-requisitos:
 
-2. Insira o link do vídeo do YouTube quando solicitado.
+```bash
+pip install yt-dlp
+```
 
-3. Especifique o caminho onde o vídeo será salvo.
+ou
 
-4. Aguarde até que o download e a conversão sejam concluídos.
+```bash
+pip3 install yt-dlp
+```
 
-Lembre-se de que a qualidade do áudio no arquivo MP3 dependerá da qualidade do vídeo original.
+#### PS:  Requer o FFmpeg instalado no sistema. No Linux, use: sudo apt install ffmpeg. No Windows, instale e adicione ao PATH.
 
-## Pré-requisitos
+## PyMP3_old.py – Conversor Manual com Pytube e MoviePy
 
-Certifique-se de ter as bibliotecas Pytube, moviepy e re instaladas em seu ambiente Python. Você pode instalá-las usando os seguintes comandos:
+Este script também baixa vídeos do YouTube e os converte em MP3, mas usando Pytube + MoviePy. Ele realiza a conversão ao percorrer manualmente os arquivos .mp4 baixados e gerando os equivalentes .mp3.
 
-``` Terminal Windows / Linux
+🚀 Como Funciona:
+
+    1. Recebe a URL do vídeo e o caminho de destino.
+
+    2. Usa Pytube para baixar somente o áudio.
+
+    3. Com os, re e moviepy, localiza o arquivo .mp4, converte para .mp3 e remove o original.
+
+❌ Desvantagens:
+
+    . Menor robustez em comparação ao yt-dlp.
+
+    . Processo mais trabalhoso e sujeito a falhas em arquivos com nomes diferentes ou problemas na conversão.
+
+    . Depende de múltiplas bibliotecas.
+
+✅ Pré-requisitos:
+```bash
 pip install pytube
 pip install moviepy
 ```
+
 ou
-``` Terminal Windows / Linux
+
+```bash
 pip3 install pytube
 pip3 install moviepy
 ```
 
+#### ⚠️ Assim como no playlist.py, o uso de Pytube pode não funcionar corretamente em versões recentes do YouTube.
 
-## Aviso
+## ⚠️ Aviso Legal
 
-Este código é fornecido apenas para fins educacionais e de aprendizado. O download e a conversão de conteúdo protegido por direitos autorais podem violar os termos de serviço do YouTube e as leis de direitos autorais. Respeite todas as leis e regulamentações ao usar este código.
+Este projeto é fornecido somente para fins educacionais.
+O download ou conversão de vídeos protegidos por `direitos autorais` pode `violar os Termos de Serviço do YouTube` e legislações locais.
 
----
+Você é responsável pelo uso adequado deste código.
 
-*Nota: Este código é fornecido como está, e o funcionamento da biblioteca Pytube pode mudar ao longo do tempo devido a atualizações no YouTube. Verifique a documentação da biblioteca Pytube para obter informações atualizadas sobre seu uso.*
+### 📚 Referências
 
+- [Pytube no PyPI](https://pypi.org/project/pytube/)
+- [yt-dlp no GitHub](https://github.com/yt-dlp/yt-dlp)
+- [MoviePy](https://zulko.github.io/moviepy/)
+- [FFmpeg](https://ffmpeg.org/)
